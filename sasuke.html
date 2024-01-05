@@ -1,0 +1,441 @@
+<head>
+    <meta charset="utf-8">
+    <title>Naruto VS Sasuke</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fonction.js">
+    <link rel="stylesheet" href="styleW3.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="fonction.js"></script>
+</head>
+<header>
+    <h1 style="color:rgb(255, 255, 255);background-color: rgb(253, 186, 40);">COMBATTEZ!!</h1>
+    <div class="infos">
+        <span class="player0">Sasuke Ushiwa <img style=" height:30px;width:30px" src=sasuke2.jpg></span>
+        <span>-</span>
+        <span style=color:black class="player1">Naruto Uzumaki
+
+                <img style=" height:30px;width:30px" src=naruto2.jpg>
+            </span>
+    </div>
+</header>
+<style>
+    body {
+        background-image: url(narutoStorm4.jpg);
+        /* The image used for background*/
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-attachment: fixed;
+        /* Center the image */
+        background-size: cover;
+        height: 900px
+        /* Resize the background image to cover the entire container */
+    }
+    
+    #p {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 500px;
+        margin: auto;
+        padding-left: 200px;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        border-radius: 10px;
+        background: #ffff;
+    }
+</style>
+<script language="javascript">
+    //<!--
+    /*Â© Nicolas DUBIEN - 2006*/
+    var joueurdebut = 0;
+    var nbjeucpu = 0;
+    var joueur = 0;
+    var utiltechnique = 0;
+    var casejoueur = " ";
+    var fin = 0;
+    var victoire0 = 0;
+    var victoire1 = 0;
+    var victoire2 = 0;
+
+    function changejoueur() {
+        joueur++;
+        if (joueur == 2) joueur = 0;
+    }
+
+    function affichechoix(casejoue) {
+        if (joueur == 0) casejoueur = "Sasuke";
+        else casejoueur = "Naruto";
+        if (casejoue == 0) {
+            document.morpion.case0.value = casejoueur;
+            document.morpion.case0.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 1) {
+            document.morpion.case1.value = casejoueur;
+            document.morpion.case1.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 2) {
+            document.morpion.case2.value = casejoueur;
+            document.morpion.case2.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 3) {
+            document.morpion.case3.value = casejoueur;
+            document.morpion.case3.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 4) {
+            document.morpion.case4.value = casejoueur;
+            document.morpion.case4.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 5) {
+            document.morpion.case5.value = casejoueur;
+            document.morpion.case5.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 6) {
+            document.morpion.case6.value = casejoueur;
+            document.morpion.case6.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 7) {
+            document.morpion.case7.value = casejoueur;
+            document.morpion.case7.id = "joueur" + (joueur + 1);
+        }
+        if (casejoue == 8) {
+            document.morpion.case8.value = casejoueur;
+            document.morpion.case8.id = "joueur" + (joueur + 1);
+        }
+    }
+
+    function gagnant(jeu) {
+        var fin = new Array();
+        fin[0] = 0;
+        fin[1] = 0;
+        for (var i = 0; i != 3; i++) {
+            /*VÃ©rification des lignes*/
+            if (jeu[i * 3] == jeu[i * 3 + 1] && jeu[i * 3] == jeu[i * 3 + 2] && jeu[i * 3] != " ") {
+                fin[0] = 1;
+                fin[1] = jeu[i * 3];
+            }
+            /*VÃ©rification des colonnes*/
+            if (jeu[i] == jeu[i + 3] && jeu[i] == jeu[i + 6] && jeu[i] != " ") {
+                fin[0] = 1;
+                fin[1] = jeu[i];
+            }
+        }
+        /*VÃ©rification des diagonales*/
+        if (jeu[0] == jeu[4] && jeu[0] == jeu[8] && jeu[0] != " ") {
+            fin[0] = 1;
+            fin[1] = jeu[0];
+        }
+        if (jeu[2] == jeu[4] && jeu[2] == jeu[6] && jeu[2] != " ") {
+            fin[0] = 1;
+            fin[1] = jeu[2];
+        }
+        /*S'il n'y a pas de gagnant, il vÃ©rifie si la grille est pleine*/
+        if (fin[0] == 0) {
+            var nbvides = 0;
+            for (var w = 0; w != 9; w++)
+                if (jeu[w] == " ") nbvides++;
+            if (nbvides == 0) fin[0] = 1;
+        }
+        return fin;
+    }
+
+    function affichegagnant(winner) {
+        var phrase;
+        if (winner == "Sasuke" || winner == "Naruto") {
+            phrase = "Victoire de ";
+            if (winner == "Sasuke") {
+                phrase += "Sasuke !! ";
+                victoire1++;
+                document.morpion.joueursuiv.id = "joueurinfo1";
+            } else {
+                phrase += "Naruto!! ";
+                victoire2++;
+                document.morpion.joueursuiv.id = "joueurinfo2";
+            }
+            phrase += "";
+        } else {
+            phrase = "Personne n\'a gagnÃ©!";
+            document.morpion.joueursuiv.id = "rieninfo";
+            victoire0++;
+        }
+        document.morpion.joueursuiv.value = phrase;
+        alert(phrase);
+        jeufini = 1;
+    }
+
+    function grille() {
+        var jeu = new Array();
+        jeu[0] = document.morpion.case0.value;
+        jeu[1] = document.morpion.case1.value;
+        jeu[2] = document.morpion.case2.value;
+        jeu[3] = document.morpion.case3.value;
+        jeu[4] = document.morpion.case4.value;
+        jeu[5] = document.morpion.case5.value;
+        jeu[6] = document.morpion.case6.value;
+        jeu[7] = document.morpion.case7.value;
+        jeu[8] = document.morpion.case8.value;
+        return jeu;
+    }
+
+    function affjoueursuiv() {
+        document.morpion.joueursuiv.value = "Joueur " + (joueur + 1);
+        document.morpion.joueursuiv.id = "joueurinfo" + (joueur + 1);
+    }
+
+    function affvictoires() {
+        document.morpionscore.info1.value = victoire1;
+        document.morpionscore.info2.value = victoire2;
+        document.morpionscore.info3.value = victoire0;
+    }
+
+    function victoirepossible(jeu, lettre) {
+        var fin = -1;
+        for (var i = 0; i != 3; i++) {
+
+            /*VÃ©rification des lignes*/
+            // - Gauche de la ligne
+            if (jeu[i * 3] != jeu[i * 3 + 1] && jeu[i * 3 + 1] == jeu[i * 3 + 2] && jeu[i * 3] == " " && jeu[i * 3 + 1] == lettre) fin = i * 3;
+            // - Milieu de la ligne
+            if (jeu[i * 3] != jeu[i * 3 + 1] && jeu[i * 3] == jeu[i * 3 + 2] && jeu[i * 3 + 1] == " " && jeu[i * 3] == lettre) fin = i * 3 + 1;
+            // - Droite de la ligne
+            if (jeu[i * 3] == jeu[i * 3 + 1] && jeu[i * 3] != jeu[i * 3 + 2] && jeu[i * 3 + 2] == " " && jeu[i * 3] == lettre) fin = i * 3 + 2;
+
+            /*VÃ©rification des colonnes*/
+            // - Haut de la colonne
+            if (jeu[i] != jeu[i + 3] && jeu[i + 3] == jeu[i + 6] && jeu[i] == " " && jeu[i + 3] == lettre) fin = i;
+            // - Milieu de la colonne
+            if (jeu[i] != jeu[i + 3] && jeu[i] == jeu[i + 6] && jeu[i + 3] == " " && jeu[i] == lettre) fin = i + 3;
+            // - Bas de la colonne
+            if (jeu[i] == jeu[i + 3] && jeu[i] != jeu[i + 6] && jeu[i + 6] == " " && jeu[i] == lettre) fin = i + 6;
+
+        }
+        /*VÃ©rification des diagonales*/
+        if (jeu[0] != jeu[4] && jeu[4] == jeu[8] && jeu[0] == " " && jeu[4] == lettre) fin = 0;
+        if (jeu[0] != jeu[4] && jeu[0] == jeu[8] && jeu[4] == " " && jeu[0] == lettre) fin = 4;
+        if (jeu[0] == jeu[4] && jeu[0] != jeu[8] && jeu[8] == " " && jeu[0] == lettre) fin = 8;
+        if (jeu[2] != jeu[4] && jeu[4] == jeu[6] && jeu[2] == " " && jeu[4] == lettre) fin = 2;
+        if (jeu[2] != jeu[4] && jeu[2] == jeu[6] && jeu[4] == " " && jeu[2] == lettre) fin = 4;
+        if (jeu[2] == jeu[4] && jeu[2] != jeu[6] && jeu[6] == " " && jeu[2] == lettre) fin = 6;
+
+        return fin;
+    }
+
+    function technique(jeu) {
+        var casejoue = -1;
+        if (nbjeucpu == 0) casejoue = 0;
+        if (nbjeucpu == 1) {
+            if (jeu[2] == "Sasuke" || jeu[4] == "Sasuke" || jeu[6] == "Sasuke") casejoue = 8;
+            else {
+                if (jeu[4] == " ") {
+                    casejoue = 4;
+                    utiltechnique = 1;
+                }
+            }
+        }
+        if (nbjeucpu == 2) {
+            if (utiltechnique == 1) {
+                if (jeu[1] == "Sasuke") casejoue = 6;
+                else casejoue = 2;
+            }
+        }
+        return casejoue;
+    }
+
+    function cpuchoix() {
+        jeu = grille();
+        /*L'ordinateur vÃ©rifie s'il peut gagner Ã  ce tour*/
+        var nivdifficulte = document.difficult.niveau.value;
+        var casejoue = -1;
+        if (nivdifficulte == 4) var optionfacile = Math.round(Math.random() * 1);
+        else var optionfacile = 0;
+        //Facile, il 1 chance sur 2 de ne pas trouver ses possibilitÃ©s de victoire
+        //Autres, il trouve toutes ses possibilitÃ©s de victoire
+        if (optionfacile == 0) casejoue = victoirepossible(jeu, 'Naruto');
+        /*Plus le niveau de difficultÃ© est important et plus l'ordinateur vÃ©rifie les possibilitÃ©s*/
+        //Facile, il vÃ©rifie 2 fois sur 5 les possibilitÃ©s du joueur
+        //Moyen, il vÃ©rifie 2 fois sur 3 les possibilitÃ©s du joueur
+        //Difficile, il vÃ©rifie toutes les fois les possibilitÃ©s du joueur
+        var option2 = Math.round(Math.random() * nivdifficulte);
+        /*Si ce n'est pas le cas il vÃ©rifie si le joueur peut gagner*/
+        if ((option2 == 0 || option2 == 1) && casejoue == -1) casejoue = victoirepossible(jeu, 'Sasuke');
+        if (nivdifficulte == 0 && joueurdebut == 1 && casejoue == -1) casejoue = technique(jeu);
+        /*Si personne ne peut gagner il joue dans n'importe quelle case*/
+        if (casejoue == -1) {
+            for (var i = 0; i != 1;) {
+                casejoue = Math.round(Math.random() * 8);
+                if (jeu[casejoue] == " ") i = 1;
+            }
+        }
+        return casejoue;
+    }
+
+    function cpu() {
+        if (jeufini == 0) {
+            casejoue = cpuchoix();
+            nbjeucpu++;
+            affichechoix(casejoue);
+            jeu = grille();
+            changejoueur();
+            var fin = gagnant(jeu);
+            affjoueursuiv();
+            if (fin[0] == 1) affichegagnant(fin[1]);
+            affvictoires();
+        }
+    }
+
+    function jouer(casejoue) {
+        if (jeufini == 0) {
+            var jeu = grille();
+            if (jeu[casejoue] == " ") {
+                affichechoix(casejoue);
+                jeu = grille();
+                changejoueur();
+                var fin = gagnant(jeu);
+                affjoueursuiv();
+                if (fin[0] == 1) affichegagnant(fin[1]);
+                affvictoires();
+                if (joueur == 1) cpu();
+            } else alert("Cette case est dÃ©jÃ  utilisÃ©e!");
+        } else alert("Si vous souhaitez refaire un combat,\nveuillez cliquer sur \'RECOMMENCER LE COMBAT\'");
+    }
+
+    function newgame() {
+        document.morpion.case0.value = " ";
+        document.morpion.case1.value = " ";
+        document.morpion.case2.value = " ";
+        document.morpion.case3.value = " ";
+        document.morpion.case4.value = " ";
+        document.morpion.case5.value = " ";
+        document.morpion.case6.value = " ";
+        document.morpion.case7.value = " ";
+        document.morpion.case8.value = " ";
+        document.morpion.case0.id = "rien";
+        document.morpion.case1.id = "rien";
+        document.morpion.case2.id = "rien";
+        document.morpion.case3.id = "rien";
+        document.morpion.case4.id = "rien";
+        document.morpion.case5.id = "rien";
+        document.morpion.case6.id = "rien";
+        document.morpion.case7.id = "rien";
+        document.morpion.case8.id = "rien";
+
+        joueurdebut = joueur;
+        nbjeucpu = 0;
+        utiltechnique = 0;
+        document.morpion.joueursuiv.value = "Joueur " + (joueur + 1);
+        document.morpion.joueursuiv.id = "joueurinfo" + (joueur + 1);
+        affvictoires();
+        jeufini = 0;
+        if (joueur == 1) cpu();
+    }
+
+    function bonjour() {
+        document.difficult.niveau.value = 2;
+        alert("Bienvenue au jeu \"Morpion contre l\'ordinateur\"");
+        newgame();
+    }
+
+    function aurevoir() {
+        alert("Au revoir et Ã  bientÃ´t\n\nÂ© Nicolas DUBIEN  - 2006");
+    }
+    //-->
+</script>
+<style type="text/css">
+    #joueur1 {
+        background-image: url(sasuke2.jpg);
+        width: 50px;
+        height: 50px;
+        background-size: 50px;
+        border: solid 2px;
+        text-shadow: white 0px 0px 2px;
+        font-size: 16px;
+    }
+    
+    #joueur2 {
+        background-image: url(naruto2.jpg);
+        width: 50px;
+        height: 50px;
+        background-size: 50px;
+        border: solid 2px;
+        text-shadow: white 0px 0px 2px;
+        font-size: 16px;
+    }
+    
+    #joueurinfo1 {
+        background-image: url(sasuke2.jpg);
+        width: 50px;
+        height: 50px;
+        background-size: 50px;
+        border: solid 2px;
+        text-shadow: white 0px 0px 2px;
+        font-size: 16px;
+    }
+    
+    #joueurinfo2 {
+        background-image: url(naruto2.jpg);
+        width: 50px;
+        height: 50px;
+        background-size: 50px;
+        border: solid 2px;
+        text-shadow: white 0px 0px 2px;
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body onLoad="bonjour()">
+    <div align="center">
+        <form name="morpion" method="post" action="">
+            <p>
+                <input type="button" name="joueursuiv" value="">
+            </p>
+            <table border="4" cellspacing="2">
+                <tr>
+                    <td><input name="case0" type="button" value=" " onClick="jouer('0')"></td>
+                    <td><input name="case1" type="button" value=" " onClick="jouer('1')"></td>
+                    <td><input name="case2" type="button" value=" " onClick="jouer('2')"></td>
+                </tr>
+                <tr>
+                    <td><input name="case3" type="button" value=" " onClick="jouer('3')"></td>
+                    <td><input name="case4" type="button" value=" " onClick="jouer('4')"></td>
+                    <td><input name="case5" type="button" value=" " onClick="jouer('5')"></td>
+                </tr>
+                <tr>
+                    <td><input name="case6" type="button" value=" " onClick="jouer('6')"></td>
+                    <td><input name="case7" type="button" value=" " onClick="jouer('7')"></td>
+                    <td><input name="case8" type="button" value=" " onClick="jouer('8')"></td>
+                </tr>
+            </table>
+        </form>
+
+        <a style=text-decoration:none href="#" onClick="newgame()" class="w3-button w3-hover-blue  w3-round w3-yellow w3-border link clignote"><i class="fab fa-instagram"></i>Recommencer le combat</a>
+        <p><a style=text-decoration:none href="modeSolo.html" class="w3-button w3-hover-blue w3-round w3-yellow w3-border link clignote"><i class="fab fa-instagram"></i>Revenir</a></p>
+        <p>&nbsp;</p>
+        <div id="p">
+            <form name="morpionscore" method="post" action="">
+                <p>Nombre de victoires du Sasuke :
+                    <input name="info1" type="text" value="" size="3" disabled>
+                </p>
+                <p>Nombre de victoires Naruto:
+                    <input name="info2" type="text" value="" size="3" disabled>
+                </p>
+                <p>Nombre de matchs nuls:
+                    <input name="info3" type="text" value="" size="3" disabled>
+                </p>
+            </form>
+        </div>
+        <p>&nbsp;</p>
+        <form name="difficult" method="post" action="">
+            <p><strong>Difficult&eacute; : </strong></p>
+            <p>
+                <select name="niveau" size="1" id="niveau">
+      <option value="4">Genin</option>
+      <option value="2">Shunin</option>
+      <option value="1">Hockage</option>
+	  <option value="0">Démon</option>
+    </select>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>
