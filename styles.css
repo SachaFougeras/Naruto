@@ -1,0 +1,141 @@
+body {
+    background-image: url(narutoStorm4.jpg);
+    /* The image used for background*/
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-attachment: fixed;
+    /* Center the image */
+    background-size: cover;
+    height: 900px
+    /* Resize the background image to cover the entire container */
+}
+
+#img {
+    padding-top: 70px;
+    width: 500px;
+    height: 250px;
+}
+
+#img2 {
+    margin-left: 70px;
+    width: 500px;
+    height: 250px;
+}
+
+#position {
+    padding-top: 100px;
+}
+
+h1,
+span {
+    text-align: center;
+    font-family: monospace;
+    color: white;
+}
+
+#button {}
+
+div.infos {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 30%;
+}
+
+div.infos span {
+    font-weight: bold;
+    font-size: 1.4em;
+    flex: 1;
+}
+
+table {
+    margin: auto;
+    margin-top: 40px;
+}
+
+table,
+td {
+    border: 2px solid rgb(251, 255, 33);
+    margin: auto;
+}
+
+table,
+input {
+    text-align: center
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+}
+
+footer {
+    padding: 40px;
+    text-align: center;
+}
+
+td>div {
+    border-radius: 50%;
+    margin: auto;
+    height: 70%;
+    width: 70%;
+}
+
+td>div.red {
+    background-image: url(sasuke2.jpg);
+    /* The image used for background*/
+    width: 50px;
+    height: 50px;
+    background-size: 50px;
+    border: solid 2px;
+    text-shadow: white 0px 0px 2px;
+    font-size: 16px;
+}
+
+td>div.blue {
+    background-image: url(naruto2.jpg);
+    /* The image used for background*/
+    width: 50px;
+    height: 50px;
+    background-size: 50px;
+    border: solid 2px;
+    text-shadow: white 0px 0px 2px;
+    font-size: 80px;
+}
+
+span.red {
+    background-color: blue;
+}
+
+span.blue {
+    background-color: rgb(255, 174, 0);
+}
+
+#result {
+    display: none;
+}
+
+button {
+    font-weight: bold;
+    height: 50px;
+    width: 320px;
+}
+
+#position2 {
+    padding-top: 100px;
+}
+
+.para {
+    width: 500px;
+    margin: auto;
+    margin-top: 160px;
+    margin-left: 30px;
+    padding-left: 20px;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-radius: 10px;
+    font-family: monospace;
+    background: rgb(255, 255, 255)
+}
