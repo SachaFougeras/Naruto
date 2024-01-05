@@ -1,0 +1,62 @@
+<link rel=stylesheet href="style.css">
+<link rel=stylesheet href="styleW3.css">
+<style>
+    body {
+        background-image: url("https://i.gifer.com/origin/46/462f372910e00bace4e06a4487de948a.gif");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+</style>
+<strong><h1 style=color:white>EVEIL DU DEMON RENARD A 9 QUEUES!!</h1></strong>
+<p><a style=text-decoration:none href="jeu.html" class="w3-button w3-hover-blue w3-round w3-yellow w3-border link clignote"><i class="fab fa-instagram"></i>CONTINUER DE COMBATTRE</a></p>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Comment afficher un loader pendant le chargement de la page</title>
+</head>
+
+<body>
+    <style>
+        #chargement {
+            border: 12px solid #000;
+            border-radius: 50%;
+            border-top: 12px solid #DDD;
+            width: 80px;
+            height: 80px;
+            animation: spin 15s;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+        <div id="chargement"></div>
+        <img src="https://i.gifer.com/origin/46/462f372910e00bace4e06a4487de948a.gif" alt="">
+        <script>
+            document.onreadystatechange = function() {
+                if (document.readyState != "complete") {
+                    document.querySelector("body").style.visibility = "hidden";
+                    document.querySelector("#chargement").style.visibility = "visible";
+                } else {
+                    document.querySelector("#chargement").style.display = "none";
+                    document.querySelector("body").style.visibility = "visible";
+                }
+            };
+        </script>
+    </body>
+
+</html>
